@@ -6,38 +6,29 @@
 //     this.bigpic = bigpic;
 //   }
 // }
-// pics: [{ name: "Moscow", url: "https://www.planete-energies.com/sites/default/files/styles/media_full_width_940px/public/thumbnails/image/moscow.jpg?itok=J_vRU4rA", bigpic: false},
-//       { name: "Berlin", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Berlin_reichstag_west_panorama_2.jpg/1920px-Berlin_reichstag_west_panorama_2.jpg" , bigpic: false},
-//       { name: "Vienna", url: "https://www.trafalgar.com/real-word/wp-content/uploads/sites/3/2020/01/Karlskirche_Wien_abends-1024x576.jpg" , bigpic: false}
-//       ],
-
+// การที่โดนแก้ให้แยกออกมาเป็น3อันอย่างงี้ทำให้งงเกินไปให้ใหม่ง่ายกว่า
 const app = Vue.createApp({
   data() {
       return {
-          pictures: [
-              { path: 'https://www.planete-energies.com/sites/default/files/styles/media_full_width_940px/public/thumbnails/image/moscow.jpg?itok=J_vRU4rA', description: 'Moscow', showFav: false, showModal: false },
-              { path: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Berlin_reichstag_west_panorama_2.jpg/1920px-Berlin_reichstag_west_panorama_2.jpg', description: 'Berlin', showFav: false, showModal: false },
-              { path: 'https://www.trafalgar.com/real-word/wp-content/uploads/sites/3/2020/01/Karlskirche_Wien_abends-1024x576.jpg', description: 'Vienna', showFav: false, showModal: false }
+          pics: [
+              { place: 'Moscow',url: 'https://www.planete-energies.com/sites/default/files/styles/media_full_width_940px/public/thumbnails/image/moscow.jpg?itok=J_vRU4rA',  fav: false },
+              { place: 'Berlin',url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Berlin_reichstag_west_panorama_2.jpg/1920px-Berlin_reichstag_west_panorama_2.jpg',  fav: false },
+              { place: 'Vienna',url: 'https://www.trafalgar.com/real-word/wp-content/uploads/sites/3/2020/01/Karlskirche_Wien_abends-1024x576.jpg', place: 'Vienna', fav: false }
           ],
           searchText: ''
       }
   },
    methods: {
-      showFavIcon(index) {
-          this.pictures[index].showFav = !this.pictures[index].showFav;
-      }, toggleModal(index) {
-          this.pictures[index].showModal = !this.pictures[index].showModal;
+      SFav(index) {
+          this.pics[index].fav = !this.pics[index].fav;
       }
   },
   computed: {
       countTotal() {
-          return this.pictures.length;
-      },
-      countShow() {
-          return this.pictures.filter(s => s.showFav).length;
+          return this.pics.length;
       },
       search() {
-          return this.pictures.filter(searchShow => { return searchShow.description.toLowerCase().includes(this.searchText.toLowerCase()) });
+          return this.pics.filter(searchShow => { return searchShow.place.toLowerCase().includes(this.searchText.toLowerCase()) });
       }
   }
 })

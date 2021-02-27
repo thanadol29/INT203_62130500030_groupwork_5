@@ -1,6 +1,6 @@
 app.component('photo-item', {
   props: {
-      pictures: {
+    pics: {
           type: Object,
           require: true
       },
@@ -9,25 +9,28 @@ app.component('photo-item', {
           require: true
       }
   },
-  template: `
-          <div class="flex flex-row space-x-5">
-          <button @click="showFavIcon(index)" @dblclick="toggleModal(index)">
-                      <img v-bind:src="pictures.path" width="100" height="1000">
+  template: 
+  
+  /*html*/ `
+          <div class="grid col-span-2 gap-6 my-6 px-4 md:px-6 lg:px-8">
+          <div class="max-w-xl mx-auto px-4 py-4 bg-white shadow-md rounded-lg">
+          <button @click="SFav(index)" @dblclick="toggleModel(index)">
+                      <img v-bind:src="pics.url" class="w-52" >
                   </button>
-              <div class="mt-10">
-                  <p>{{ pictures.description }}</p>
+              <div>
+                  <p>{{ pics.place }}</p>
               </div>
-              <span v-show="pictures.showFav" style="color: red;" class="material-icons mt-10">
+              <span v-show="pics.fav"  class="material-icons" >
+
+              
                   favorite
               </span>
+              </div>
           </div>
   `,
   methods: {
-      showFavIcon(index){
+    SFav(index){
           this.$emit('show-fav',index);
-      },
-      toggleModal(index){
-          this.$emit('toggle-modal',index);
       }
   }
 })
