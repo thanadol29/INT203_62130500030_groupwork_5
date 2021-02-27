@@ -1,32 +1,39 @@
-app.component('search', {
-    template:
-    /*html*/ `
-    <div class="text-center">
-      <center>
-        <div class="pl-64 pt-5">
-          <a v-show="showmag" @click="[showsearch = !showsearch, mag]">
-            <img class="w-10 pr-1" src="images/iconmonstr-magnifier-4-240.png">
-          </a>
-        </div>
-      </center>
-      <input type="text" v-show="showsearch" v-model="search" placeholder="Search for the place"
-        class="p-2 bg-white rounded flex-1 border-b-2 border-blue-300">
-      <button v-show="showsearch" v-model="search"
-        @click="[search = '' , showsearch = !showsearch, showmag = !showmag] "
-        class="bg-green-500 text-white  py-1 px-6 rounded">cancel</button>
-    </div>
-    `,
-    data(){
-        return {
-            search:''
-        }
-    },
-    methods:{
-        
-
-    }
-    }
-    
-
-
-)
+app.component('photo-search',{
+  data(){
+      return{
+          showSearchBoxVar: false,
+          searchText: ''
+      }
+  },
+  props:{
+      pictures:{
+          type: Array,
+          require: true
+      }
+  },
+  template:`
+  <div class="flex w-96 h-10 mt-2 ">
+          <input v-show="showSearchBoxVar" v-model="searchText" type="text" placeholder="search picture"
+              class="bg-gray-200 text-gray-800 placeholder-gray-400  pl-2 py-1 w-96" />
+          <button v-show="!showSearchBoxVar" @click="showSearchBox"
+              class="bg-gray-200 w-auto flex justify-end items-center">
+              <i class="material-icons">search</i>
+          </button>
+          <button v-show="showSearchBoxVar" @click="showSearchBox"
+              class="bg-gray-200 w-auto flex justify-end items-center">
+              <p>Cancel</p>
+          </button>
+      </div>
+  `,
+  methods:{
+      showSearchBox() {
+          this.showSearchBoxVar = !this.showSearchBoxVar;
+          this.searchText='';
+      }
+  },
+  watch:{
+      searchText: function(){
+          this.$emit('search-text',this.searchText)
+      }
+  }
+})
